@@ -8,13 +8,11 @@ import datetime
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
-        print("CU", self)
         if not email:
             raise ValueError('email is required')
         
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email)
-        user.last_login = datetime.datetime.now() 
+        user = self.model(username=username, email=email) 
 
         user.set_password(password)
         user.save(using=self._db)
@@ -32,13 +30,14 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    UUID = models.CharField(max_length=255, default=uuid4, primary_key=True, unique=True, editable=False)
+    UID = models.CharField(max_length=255, default=uuid4, primary_key=True, unique=True, editable=False)
     username = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()
 

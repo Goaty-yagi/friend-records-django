@@ -13,11 +13,11 @@ from os import getenv, path
 from pathlib import Path
 import dotenv
 from django.core.management.utils import get_random_secret_key
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-dotenv_file = BASE_DIR / '.env.local'
+dotenv_file = BASE_DIR / 'env.local'
 
 if path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
@@ -30,10 +30,11 @@ if path.isfile(dotenv_file):
 SECRET_KEY = getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG', "False") == 'True'
+# DEBUG = getenv('DEBUG', "False") == 'True'
+DEBUG = True
 
 ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS',
-                       '127.0.0.1, localhost').split(',')
+                       '127.0.0.1,localhost').split(',')
 
 
 # Application definition
@@ -49,18 +50,29 @@ INSTALLED_APPS = [
     'users',
 
     'rest_framework',
-    'djoser'
+    'djoser',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# corsheaders setting start
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
+CORS_ALLOW_CREDENTIALS = True
+
+# corsheaders setting end
 
 ROOT_URLCONF = 'root.urls'
 
@@ -131,9 +143,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTENTICATION_CLASSES' : (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'users.authentication.CustomJWTAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES' : [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -148,8 +160,42 @@ DJOSER = {
     # 'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(',')
 }
 
+AUTH_COOKIE = 'access'
+AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
+AUTH_COOKIE_HTTP_ONLY = True
+AUTH_COOKIE_PATH = '/'
+AUTH_COOKIE_SAMESITE = 'None'
+
+SIMPLE_JWT = {
+    # 'AUTH_HEADER_TYPES': ('Bearer','JWT'),
+    'SIGNING_KEY': SECRET_KEY,
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
+    'ROTATE_REFRESH_TOKENS' : True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+    'USER_ID_FIELD': 'UID',
+    'USER_ID_CLAIM': 'user_UID'
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_POUT = '587'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
+VERIFICATION_URL = getenv('VERIFICATION_URL')
+PASSWORD_CHANGE_URL = getenv('PASSWORD_CHANGE_URL')
+
+DEFAUL_FROM_EMAIL = getenv('EMAIL_HOST_USER')
+DOMAIN  = getenv('DOMAIN') # for djoser email template
+SITE_NAME = 'Full_Auth'  # for djoser email template
