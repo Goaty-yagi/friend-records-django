@@ -12,8 +12,9 @@ from rest_framework_simplejwt.views import (
 
 class CustomProviderAuthView(ProviderAuthView):
     def post(self, request, *args, **kwargs):
+        print("CHECK SOCIAL POST", request, args, kwargs)
         response = super().post(request, *args, **kwargs)
-
+        print("CHECK SOCIAL POST", response)
         if response.status_code == 201:
             access_token = response.data.get('access')
             refresh_token = response.data.get('refresh')
