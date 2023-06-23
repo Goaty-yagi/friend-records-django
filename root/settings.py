@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'social_django',
+    'defender',
     'corsheaders',
 ]
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
 
 # corsheaders setting start
@@ -158,6 +160,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES' : [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/hour',
+    }
 }
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
@@ -170,17 +178,16 @@ DJOSER = {
 }
 
 AUTH_COOKIE = 'access'
-AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30 #30 days for refresh token
 AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'
 AUTH_COOKIE_SAMESITE = 'None'
 
 SIMPLE_JWT = {
-    # 'AUTH_HEADER_TYPES': ('Bearer','JWT'),
     'SIGNING_KEY': SECRET_KEY,
     'ACCESS_TOKEN_LIFETIME': timedelta(seconds=300),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS' : True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True,
@@ -203,6 +210,8 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'email, username'
 }
+SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -221,6 +230,6 @@ EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
 VERIFICATION_URL = getenv('VERIFICATION_URL')
 PASSWORD_CHANGE_URL = getenv('PASSWORD_CHANGE_URL')
 
-DEFAUL_FROM_EMAIL = getenv('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = getenv('EMAIL_HOST_USER')
 DOMAIN  = getenv('DOMAIN') # for djoser email template
 SITE_NAME = 'Full_Auth'  # for djoser email template
