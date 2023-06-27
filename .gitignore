@@ -1,4 +1,4 @@
 venv/
 media/
-env.local/
+env.local
 db.sqlite3
