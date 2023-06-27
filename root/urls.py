@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/defender/', include('defender.urls')), # defender admin
     path('api/', include('djoser.urls')),
     path('api/', include('users.urls')),
+    path('api/',include('events.urls')),
+    path('api/',include('friends.urls')),
     path(r'^auth/', include('djoser.social.urls')),
 ]
