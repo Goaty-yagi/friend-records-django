@@ -3,6 +3,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from djoser.social.views import ProviderAuthView
+from rest_framework import generics
+from .serializers import UserSerializer
+from .models import User
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -111,3 +114,9 @@ class LogoutView(APIView):
         response.delete_cookie('refresh')
 
         return response
+
+
+class UserRetrieveApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    lookup_field = 'UID'

@@ -12,7 +12,7 @@ class Friend(models.Model):
     sum = models.IntegerField(default=0)
     birthday = models.DateField(default=None, null=True, blank=True)
     thumbnail = models.ImageField(blank=True, null=True, default='default.png')
-    avatar = models.CharField(max_length=50, default=None, null=True, blank=True)
+    avatar = models.CharField(max_length=50)
     last_log = models.DateTimeField(default=timezone.now, blank=True)
     created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
