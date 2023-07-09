@@ -8,4 +8,6 @@ class UserSerializer(serializers.ModelSerializer):
 			"UID",
 			"username",
 			"email",
+			"avatar",
+			"is_staff",
 		]

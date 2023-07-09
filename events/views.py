@@ -40,8 +40,8 @@ class EventUserListApi(APIView):
     # get characterevent list.
     def post(self, request):
         friend_id = request.data.pop('friend')
-        character_event = Event.objects.filter(friend=friend_id)
-        serializer = EventCreateSerializer(character_event, many=True)
+        friend_event = Event.objects.filter(friend=friend_id)
+        serializer = EventCreateSerializer(friend_event, many=True)
         return Response(serializer.data)
 
 
@@ -54,12 +54,12 @@ class EventDetailApi(generics.RetrieveUpdateDestroyAPIView):
         pre_instance = self.get_object()  # instance before update
         instance = serializer.save()
         diff_money = instance.money - pre_instance.money
-        character = Friend.objects.get(id=instance.character.id)
-        character.sum += diff_money
-        character.save()
+        friend = Friend.objects.get(id=instance.friend.id)
+        friend.sum += diff_money
+        friend.save()
 
     def perform_destroy(self, instance):
-        character = Friend.objects.get(id=instance.character.id)
-        character.sum -= instance.money
+        friend = Friend.objects.get(id=instance.friend.id)
+        friend.sum -= instance.money
         instance.delete()
-        character.save()  
+        friend.save()  
