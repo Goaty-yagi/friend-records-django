@@ -27,6 +27,4 @@ python manage.py runserver
 ## who built?
 
 
-
-- [Portfolio]([https://nextjs.org/docs](https://portfolio-with-next-js-sigma.vercel.app/)) 
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [My Portfolio](https://portfolio-with-next-js-sigma.vercel.app/)
