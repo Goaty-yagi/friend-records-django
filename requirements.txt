@@ -8,6 +8,7 @@ cffi==1.15.1
 charset-normalizer==3.1.0
 cryptography==41.0.1
 defusedxml==0.7.1
+dj-database-url==2.1.0
 Django==4.2.2
 django-cors-headers==4.1.0
 django-defender==0.9.7
@@ -16,10 +17,13 @@ django-templated-mail==1.1.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 djoser==2.2.0
+gunicorn==21.2.0
 idna==3.4
 jmespath==1.0.1
 oauthlib==3.2.2
+packaging==23.1
 Pillow==9.5.0
+psycopg2-binary==2.9.7
 pycodestyle==2.10.0
 pycparser==2.21
 PyJWT==2.7.0
@@ -35,4 +39,5 @@ six==1.16.0
 social-auth-app-django==5.2.0
 social-auth-core==4.4.2
 sqlparse==0.4.4
+typing_extensions==4.7.1
 urllib3==1.26.16
