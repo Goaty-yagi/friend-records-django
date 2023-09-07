@@ -15,6 +15,7 @@ from pathlib import Path
 import dotenv
 from django.core.management.utils import get_random_secret_key
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,6 +79,10 @@ CORS_ALLOWED_ORIGINS = getenv(
     'http://localhost:3000,http://127.0.0.1:3000'
 ).split(',')
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = (
+    *default_headers,
+    "application/json",
+)
 # CORS_ALLOW_ALL_HEADERS = "*"
 # CORS_ALLOW_ALL_ORIGINS = True
 # corsheaders setting end
