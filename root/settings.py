@@ -109,11 +109,11 @@ WSGI_APPLICATION = 'root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fly',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'yXTJvaIs7qQp1xm',
-        'HOST': 'friend-records-db.internal',
-        'PORT': '5432',
+        'PASSWORD': getenv('DATABASE_PASSWORD'),
+        'HOST': getenv('DATABASE_HOST'),
+        'PORT': getenv('DATABASE_POST'),
     }
 }
 
