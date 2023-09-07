@@ -187,6 +187,7 @@ DJOSER = {
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(','),
     'SERIALIZERS': {'current_user': 'users.serializers.UserSerializer'},
 }
+SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = CORS_ALLOWED_ORIGINS
 
 AUTH_COOKIE = 'access'
 AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30 #30 days for refresh token
