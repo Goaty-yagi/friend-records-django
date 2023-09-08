@@ -79,11 +79,11 @@ CORS_ALLOWED_ORIGINS = getenv(
     'http://localhost:3000,http://127.0.0.1:3000'
 ).split(',')
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = (
-    *default_headers,
-    "application/json",
-    "application/x-www-form-urlencoded"
-)
+# CORS_ALLOW_HEADERS = (
+#     *default_headers,
+#     "application/json",
+#     "application/x-www-form-urlencoded"
+# )
 # CORS_ALLOW_ALL_HEADERS = True
 # CORS_ALLOW_ALL_ORIGINS = True
 # corsheaders setting end
