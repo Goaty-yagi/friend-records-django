@@ -172,7 +172,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'users.authentication.CustomJWTAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES' : [
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
     # 'DEFAULT_THROTTLE_CLASSES': [
@@ -195,7 +195,7 @@ DJOSER = {
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = getenv('REDIRECT_URLS').split(',')
 
 AUTH_COOKIE = 'access'
-AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30 #30 days for refresh token
+AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30  # 30 days for refresh token
 AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
 AUTH_COOKIE_HTTP_ONLY = True
 AUTH_COOKIE_PATH = '/'
@@ -206,11 +206,14 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SECRET_KEY,
     'ACCESS_TOKEN_LIFETIME': timedelta(seconds=300),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESH_TOKENS' : True,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True,
     'USER_ID_FIELD': 'UID',
-    'USER_ID_CLAIM': 'user_UID'
+    'USER_ID_CLAIM': 'user_UID',
+    'AUTH_COOKIE_SAMESITE': 'None',
+    'AUTH_COOKIE_DOMAIN': getenv('AUTH_COOKIE_DOMAIN')
+
 }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = getenv('GOOGLE_AUTH_KEY')
@@ -237,7 +240,7 @@ SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
-# Email setting 
+# Email setting
 
 EMAIL_BACKEND = 'django_ses.SESBackend'
 DEFAULT_FROM_EMAIL = getenv('AWS_SES_FROM_EMAIL')
@@ -249,5 +252,5 @@ AWS_SES_REGION_ENDPOINT = f'email.{AWS_SES_REGION_NAME}.amazonaws.com'
 AWS_SES_FROM_EMAIL = getenv('AWS_SES_FROM_EMAIL')
 USE_SES_V2 = True
 
-DOMAIN  = getenv('DOMAIN') # for djoser email template
+DOMAIN = getenv('DOMAIN')  # for djoser email template
 SITE_NAME = 'Full_Auth'  # for djoser email template
