@@ -85,7 +85,7 @@ CORS_ALLOW_CREDENTIALS = True
 #     "application/x-www-form-urlencoded"
 # )
 # CORS_ALLOW_ALL_HEADERS = True
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 # corsheaders setting end
 
 ROOT_URLCONF = 'root.urls'
