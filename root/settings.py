@@ -147,6 +147,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.amazon.AmazonOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -213,6 +214,8 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
+SOCIAL_AUTH_AMAZON_KEY = getenv('SOCIAL_AUTH_AMAZON_KEY')
+SOCIAL_AUTH_AMAZON_SECRET = getenv('SOCIAL_AUTH_AMAZON_SECRET')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
