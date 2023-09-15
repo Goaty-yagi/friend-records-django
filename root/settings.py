@@ -176,6 +176,7 @@ DJOSER = {
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(','),
     'SERIALIZERS': {'current_user': 'users.serializers.UserSerializer'},
 }
+
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = getenv('REDIRECT_URLS').split(',')
 
 AUTH_COOKIE = 'access'
