@@ -148,6 +148,7 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.amazon.AmazonOAuth2',
+    'social_core.backends.spotify.SpotifyOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -218,6 +219,10 @@ SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
 SOCIAL_AUTH_AMAZON_KEY = getenv('SOCIAL_AUTH_AMAZON_KEY')
 SOCIAL_AUTH_AMAZON_SECRET = getenv('SOCIAL_AUTH_AMAZON_SECRET')
+
+SOCIAL_AUTH_SPOTIFY_KEY = getenv('SOCIAL_AUTH_SPOTIFY_KEY')
+SOCIAL_AUTH_SPOTIFY_SECRET = getenv('SOCIAL_AUTH_SPOTIFY_SECRET')
+SOCIAL_AUTH_SPOTIFY_SCOPE = ['user-read-email', 'user-read-private']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
