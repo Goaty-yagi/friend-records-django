@@ -147,6 +147,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.amazon.AmazonOAuth2',
+    'social_core.backends.spotify.SpotifyOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -175,7 +177,9 @@ DJOSER = {
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(','),
     'SERIALIZERS': {'current_user': 'users.serializers.UserSerializer'},
 }
+
 SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = getenv('REDIRECT_URLS').split(',')
+print('check_SOCIAL_AUTH_ALLOWED_REDIRECT_URIS',SOCIAL_AUTH_ALLOWED_REDIRECT_URIS)
 
 AUTH_COOKIE = 'access'
 AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30  # 30 days for refresh token
@@ -213,6 +217,12 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.10'
 
+SOCIAL_AUTH_AMAZON_KEY = getenv('SOCIAL_AUTH_AMAZON_KEY')
+SOCIAL_AUTH_AMAZON_SECRET = getenv('SOCIAL_AUTH_AMAZON_SECRET')
+
+SOCIAL_AUTH_SPOTIFY_KEY = getenv('SOCIAL_AUTH_SPOTIFY_KEY')
+SOCIAL_AUTH_SPOTIFY_SECRET = getenv('SOCIAL_AUTH_SPOTIFY_SECRET')
+SOCIAL_AUTH_SPOTIFY_SCOPE = ['user-read-email', 'user-read-private']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -233,4 +243,4 @@ AWS_SES_FROM_EMAIL = getenv('AWS_SES_FROM_EMAIL')
 USE_SES_V2 = True
 
 DOMAIN = getenv('DOMAIN')  # for djoser email template
-SITE_NAME = 'Full_Auth'  # for djoser email template
+SITE_NAME = 'Friend Record'  # for djoser email template
