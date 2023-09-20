@@ -243,4 +243,4 @@ AWS_SES_FROM_EMAIL = getenv('AWS_SES_FROM_EMAIL')
 USE_SES_V2 = True
 
 DOMAIN = getenv('DOMAIN')  # for djoser email template
-SITE_NAME = 'Full_Auth'  # for djoser email template
+SITE_NAME = 'Friend Record'  # for djoser email template
